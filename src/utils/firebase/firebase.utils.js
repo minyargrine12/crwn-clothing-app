@@ -4,7 +4,9 @@ import { getAuth,
     signInWithPopup,
      GoogleAuthProvider,
 createUserWithEmailAndPassword,
-signInWithEmailAndPassword
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
 
 
 } from "firebase/auth";
@@ -26,8 +28,10 @@ const firebaseConfig = {
 prompt: "select_account",
   });
   export const auth = getAuth();
+
   export const signInWithGooglePopup = () =>
      signInWithPopup(auth, googleprovider);
+
   export const  signInWithGoogleRedirect = () =>
      signInWithRedirect(auth, googleprovider);
 
@@ -76,3 +80,20 @@ if ( !email || !password) return;
     if ( !email || !password) return;
         return await signInWithEmailAndPassword(auth, email, password)
       };
+
+
+      export const signOutUser = async () => await signOut(auth);
+
+
+
+      export const onAuthStateChangedListener = (callback) =>
+
+  onAuthStateChanged(auth, callback);
+
+  /**
+   * {
+   * next: callback,
+   * error:errorCallback,
+   * complete: completeCallback 
+   * }
+   */
